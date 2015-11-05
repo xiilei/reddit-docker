@@ -1,2 +1,16 @@
 reddit:
     build:.
+    links:
+        - db
+        - cassandra
+        - rabbitmq
+db:
+    image:postgres
+    environment:
+        POSTGRES_USER:reddit
+        POSTGRES_PASSWORD:reddit
+cassandra:
+    image:cassandra:2.0
+
+rabbitmq:
+    image:rabbitmq

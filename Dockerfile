@@ -47,7 +47,6 @@ optipng \
 jpegoptim \
 postgresql-client \
 gunicorn \
-sutro \
 libpcre3-dev \
 nginx \
 
@@ -68,6 +67,7 @@ RUN set -x \
     && unzip reddit.zip && mv reddit-master reddit \
     && curl -SL "https://github.com/reddit/reddit-i18n/archive/master.zip" -o i18n.zip \
     && unzip i18n.zip && mv reddit-i18n-master i18n \
+    && rm -rf *.zip \
     && cd "$REDDIT_HOME/reddit" \
     && python setup.py build \
     && python setup.py develop --no-deps \
@@ -76,12 +76,12 @@ RUN set -x \
     && python setup.py build \
     && python setup.py develop --no-deps \
     && make clean all
-    && rm -rf *.zip
 
 WORDIR /opt/rh/reddit
 
 COPY development.update ./development.update
 COPY ./click.conf /etc/gunicorn.d/click.conf
+COPY ./geoip.conf /etc/gunicorn.d/geoip.conf
 COPY ./reddit-all.conf /etc/nginx/sites-available/reddit
 
 RUN make ini && ln -nsf development.ini run.ini \
