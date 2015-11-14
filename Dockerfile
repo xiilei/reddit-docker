@@ -89,3 +89,7 @@ RUN make ini && ln -nsf development.ini run.ini \
     && ln -nsf /etc/nginx/sites-available/reddit /etc/nginx/sites-enabled/ \
     && ln -nsf "$REDDIT_HOME/reddit/r2/development.ini" "$REDDIT_HOME/reddit/scripts/production.ini"
 
+# for Postgresql.
+# http://www.postgresql.org/message-id/AANLkTilNkBeNbP0QaSyi9kbDI4icIivEE4z25YNrGlw0@mail.gmail.com
+RUN echo -e "zh_CN.UTF-8 UTF-8\nzh_CN GB2312\nzh_CN.GBK GBK\nen_US.UTF-8 UTF-8\nfr_FR ISO-8859-1\nzh_CN.GB18030 GB18030\n">/var/lib/locales/supported.d/local
+RUN locale-gen --purge
